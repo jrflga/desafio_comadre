@@ -13,7 +13,6 @@ config :comadre_pay, ComadrePayWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "boiling-sierra-05560.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
-  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
 config :logger, level: :info
