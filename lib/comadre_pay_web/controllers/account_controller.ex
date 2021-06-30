@@ -6,6 +6,11 @@ defmodule ComadrePayWeb.AccountsController do
 
   action_fallback ComadrePayWeb.FallbackController
 
+  def search(conn, params) do
+    transactions = ComadrePay.list_transactions_by_datetime(params)
+    render(conn, "search.json", transactions: transactions)
+  end
+
   def deposit(conn, params) do
     with {:ok, %Account{} = account} <- ComadrePay.deposit(params) do
       conn
@@ -27,6 +32,14 @@ defmodule ComadrePayWeb.AccountsController do
       conn
       |> put_status(:ok)
       |> render("transaction.json", transaction: transaction)
+    end
+  end
+
+  def revoke(conn, params) do
+    with {:ok, %TransactionResponse{} = transaction} <- ComadrePay.revoke(params) do
+      conn
+      |> put_status(:ok)
+      |> render("revoke.json", transaction: transaction)
     end
   end
 

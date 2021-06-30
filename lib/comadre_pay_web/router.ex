@@ -25,7 +25,8 @@ defmodule ComadrePayWeb.Router do
     post "/account/deposit/:id", AccountsController, :deposit
     post "/account/withdraw/:id", AccountsController, :withdraw
     post "/account/transaction", AccountsController, :transaction
-    post "/account/transaction/revoke/:id", AccountsController, :revoke
+    post "/account/transaction/search", AccountsController, :search
+    get "/account/transaction/revoke/:id", AccountsController, :revoke
   end
 
   # Enables LiveDashboard only for development

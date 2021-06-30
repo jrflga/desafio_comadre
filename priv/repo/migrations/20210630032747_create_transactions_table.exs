@@ -4,8 +4,8 @@ defmodule ComadrePay.Repo.Migrations.CreateTransactionsTable do
   def change do
 
     create table :transactions do
-      add :from, references(:accounts, type: :binary_id)
-      add :to, references(:accounts, type: :binary_id)
+      add :from, :binary_id
+      add :to, :binary_id
       add :amount, :decimal
       add :revoked?, :boolean
 

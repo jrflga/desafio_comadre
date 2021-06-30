@@ -5,13 +5,13 @@ defmodule ComadrePay.Transaction do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
-  @required_params [:balance, :revoked?]
+  @required_params [:from, :to, :amount]
 
   schema "transactions" do
-    belongs_to :from, :binary_id
-    belongs_to :to, :binary_id
-    field :balance, :decimal
-    field :revoked?, :boolean
+    field :from, :binary_id
+    field :to, :binary_id
+    field :amount, :decimal
+    field :revoked?, :boolean, default: false
 
     timestamps()
   end

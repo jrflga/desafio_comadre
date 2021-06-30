@@ -11,4 +11,5 @@ defmodule ComadrePay do
 
   defdelegate transaction(params), to: Transaction, as: :call
   defdelegate revoke(params), to: Transaction, as: :revoke
+  defdelegate list_transactions_by_datetime(params), to: Transaction, as: :list_by_datetime
 end
