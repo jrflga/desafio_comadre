@@ -11,11 +11,11 @@ config :comadre_pay,
   ecto_repos: [ComadrePay.Repo],
   generators: [binary_id: true]
 
-config :comadrepay, ComadrePay.Repo,
+config :comadre_pay, ComadrePay.Repo,
   migration_primary_key: [type: :binary_id],
   migration_foreign_key: [type: :binary_id]
 
-config :comadrepay, :basic_auth,
+config :comadre_pay, :basic_auth,
   username: "df221400-0fe1-4567-a7fb-35498d651fb9",
   password: "a3905135-2c9b-4e89-a6b3-354691665463"
 
@@ -38,3 +38,7 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :comadre_pay, ComadrePay.Guardian,
+  issuer: "comadre_pay",
+  secret_key: "IhtxpqNLtDuw0CqqVjLOzss0IOiWb/6DZ9kT34gzbbi3nMcTXnZyGWW5C/lvZujE"
