@@ -1,12 +1,30 @@
 defmodule ComadrePayWeb.Router do
   use ComadrePayWeb, :router
 
+  alias ComadrePay.Guardian
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :jwt_authenticated do
+    plug Guardian.AuthPipeline
+  end
+
   scope "/api", ComadrePayWeb do
     pipe_through :api
+
+    post "/user/register", UserController, :create
+    post "/user/login", UserController, :login
+  end
+
+  scope "/api", ComadrePayWeb do
+    pipe_through [:api, :jwt_authenticated]
+
+    get "/user", UserController, :show
+    post "/account/deposit/:id", AccountsController, :deposit
+    post "/account/withdraw/:id", AccountsController, :withdraw
+    post "/account/transaction", AccountsController, :transaction
   end
 
   # Enables LiveDashboard only for development
