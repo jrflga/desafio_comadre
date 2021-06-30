@@ -10,4 +10,5 @@ defmodule ComadrePay do
   defdelegate withdraw(params), to: Withdraw, as: :call
 
   defdelegate transaction(params), to: Transaction, as: :call
+  defdelegate revoke(params), to: Transaction, as: :revoke
 end

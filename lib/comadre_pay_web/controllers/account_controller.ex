@@ -29,4 +29,12 @@ defmodule ComadrePayWeb.AccountsController do
       |> render("transaction.json", transaction: transaction)
     end
   end
+
+  def revoke(conn, params) do
+    with {:ok, %TransactionResponse{} = transaction} <- ComadrePay.revoke(params) do
+      conn
+      |> put_status(:ok)
+      |> render("revoke.json", transaction: transaction)
+    end
+  end
 end

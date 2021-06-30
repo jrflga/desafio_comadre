@@ -1,7 +1,7 @@
 defmodule ComadrePay.Accounts.Transaction do
   alias Ecto.Multi
 
-  alias ComadrePay.{Accounts.Operation, Repo}
+  alias ComadrePay.{Accounts.Operation, Transaction, Repo}
   alias ComadrePay.Accounts.Transactions.Response, as: TransactionResponse
 
   def call(%{"from" => from_id, "to" => to_id, "amount" => amount}) do
@@ -11,8 +11,23 @@ defmodule ComadrePay.Accounts.Transaction do
     Multi.new()
     |> Multi.merge(fn _changes -> Operation.call(withdraw_params, :withdraw) end)
     |> Multi.merge(fn _changes -> Operation.call(deposit_params, :deposit) end)
+    |> Multi.merge(fn _changes -> end)
     |> run_transaction()
   end
+
+  def revoke?(%{"id" => id}) do
+    transaction = Repo.get_by!(Transaction, id: id)
+
+    with {_, revoke}
+
+    Multi.new()
+    |> Multi.merge(fn _changes -> Operation.call(withdraw_params, :withdraw) end)
+    |> Multi.merge(fn _changes -> Operation.call(deposit_params, :deposit) end)
+    |> Multi.merge(fn _changes -> end)
+    |> run_transaction()
+  end
+
+  defp revoke(revoke) when revoke, do:
 
   defp build_params(id, amount), do: %{"id" => id, "amount" => amount}
 
